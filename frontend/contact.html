@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Bhojan Setu</title>
+  <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .contact h2{
+        font-size: 40px;
+        background-color: dimgrey;
+        padding: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .contact .intro{
+        font-size: 20px;
+        margin: 15px;
+        color:rgb(106, 108, 110);
+    }
+    .contact-info h3{
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: rgb(61, 60, 60);
+    }
+    .contact-info{
+        text-align: center;
+        background-color: rgb(195, 192, 192);
+        padding: 20px;
+    }
+    .contact-info p{
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    footer{
+        text-align: center;
+    }
+  </style>
+  <script>
+   window.API_BASE_URL = 'http://localhost:5000/api';
+function api(url) { return `${window.API_BASE_URL}${url}`; }
+
+</script>
+</head>
+<body>
+
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p class="intro">We’d love to hear from you! Whether you want to donate food, partner with us, or just learn more — reach out today.</p>
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+        <h3>Our Office</h3>
+        <p>Bhojan Setu Foundation<br>New Delhi, India</p>
+        <br>
+        <hr>
+        <h3> Call Us</h3>
+        <p>+91 98765 43210</p>
+        <br>
+        <hr>
+        <h3> Email</h3>
+        <p>support@bhojansetu.org</p>
+
+        
+      </div>
+    </div>
+     
+
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Bhojan Setu | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

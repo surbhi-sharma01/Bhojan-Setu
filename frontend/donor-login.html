@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhojan Setu | Login / Register</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    body { background: linear-gradient(135deg, #222, #444, #111); height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .container { width: 100%; max-width: 400px; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); backdrop-filter: blur(10px); color: white; }
+    .form-box h1 { text-align: center; margin-bottom: 20px; font-size: 2rem; color: #e2e7e4; letter-spacing: 1px; }
+    .input-group { display: flex; flex-direction: column; gap: 15px; }
+    .input-field input { width: 100%; padding: 12px; border: none; outline: none; border-radius: 10px; font-size: 1rem; }
+    .input-field input::placeholder { color: #555; }
+    p { text-align: center; margin: 10px 0; font-size: 0.9rem; color: #ddd; }
+    p a { color: #e2a856; text-decoration: none; }
+    p a:hover { text-decoration: underline; }
+    .btn-field { display: flex; justify-content: space-between; margin-top: 20px; }
+    .btn-field button { width: 48%; padding: 10px 0; background: #cfaf83; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s; color: #222; }
+    .btn-field button:hover { background: #ff9500; color: white; }
+    .disable { background: transparent; border: 1px solid #ffb347; color: #ffb347; }
+    .disable:hover { background: #ffb347; color: #222; }
+  </style>
+  
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h1 id="title">Login</h1>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" style="display:none;">
+        <div class="input-group">
+          <div class="input-field">
+            <input type="text" id="name" placeholder="Full Name" required />
+          </div>
+          <div class="input-field">
+            <input type="email" id="regEmail" placeholder="Email" required />
+          </div>
+          <div class="input-field">
+            <input type="password" id="regPassword" placeholder="Password" required />
+          </div>
+          <div class="input-field">
+            <input type="text" id="contact" placeholder="Phone" required />
+          </div>
+          <div class="input-field">
+            <input type="text" id="address" placeholder="Address" required />
+          </div>
+        </div>
+        <div class="btn-field">
+          <button type="submit">Register</button>
+          <button type="button" id="switchToLogin" class="disable">Login</button>
+        </div>
+      </form>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm">
+        <div class="input-group">
+          <div class="input-field">
+            <input type="email" id="loginEmail" placeholder="Email" required />
+          </div>
+          <div class="input-field">
+            <input type="password" id="loginPassword" placeholder="Password" required />
+          </div>
+        </div>
+        
+        <div class="btn-field">
+          <button type="submit">Login</button>
+          <button type="button" id="switchToRegister" class="disable">Register</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  
+          <script>
+  // ===============================
+  // API Base URL
+  window.API_BASE_URL = 'http://localhost:5000/api';
+function api(url) { return `${window.API_BASE_URL}${url}`; }
+
+  
+
+  // ===============================
+  // Toggle between login/register forms
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  const switchToRegister = document.getElementById('switchToRegister');
+  const switchToLogin = document.getElementById('switchToLogin');
+  const title = document.getElementById('title');
+
+  switchToRegister.onclick = function() {
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+    title.textContent = 'Register';
+  };
+
+  switchToLogin.onclick = function() {
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    title.textContent = 'Login';
+  };
+
+  // ===============================
+  // Helper for POST requests
+  async function postJSON(url, body) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Request failed');
+    return data;
+  }
+
+  // ===============================
+  // REGISTER
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const body = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('regEmail').value,
+          password: document.getElementById('regPassword').value,
+          phone: document.getElementById('contact').value,
+          address: document.getElementById('address').value,
+          role: 'individual'
+        };
+        const data = await postJSON(api('/donors/register'), body);
+        localStorage.setItem('donor_token', data.data.token);
+        window.location.href = 'donor-dashboard.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  }
+
+  // ===============================
+  // LOGIN
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const body = {
+          email: document.getElementById('loginEmail').value,
+          password: document.getElementById('loginPassword').value
+        };
+        const data = await postJSON(api('/donors/login'), body);
+        localStorage.setItem('donor_token', data.data.token);
+        window.location.href = 'donor-dashboard.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

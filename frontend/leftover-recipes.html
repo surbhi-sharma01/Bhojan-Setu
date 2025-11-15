@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bhojan Setu — Leftover Recipes</title>
+  <style>
+    :root{
+  --bg:#faf9f6;
+  --card:#ffffff;
+  --accent:#e84a3a;
+  --muted:#616161;
+  --radius:10px;
+  --gap:16px;
+  --maxwidth:1000px;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin:0;
+  background:var(--bg);
+  color:#222;
+  line-height:1.45;
+  padding:24px;
+  display:flex;
+  justify-content:center;
+}
+
+.container{
+  width:100%;
+  max-width:var(--maxwidth);
+}
+
+.section-header{
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.section-header h1{
+  margin:6px 0;
+  font-size:1.6rem;
+}
+
+.lead{
+  color:var(--muted);
+  margin:0;
+  font-size:0.98rem;
+}
+
+/* grid */
+.recipes-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:var(--gap);
+  margin-top:18px;
+}
+
+/* card */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:14px;
+  box-shadow:0 6px 18px rgba(30,30,30,0.06);
+  border:1px solid rgba(0,0,0,0.04);
+}
+
+.card h2{
+  margin:0 0 6px;
+  font-size:1.05rem;
+  color:#111;
+}
+
+.meta{
+  font-size:0.85rem;
+  color:var(--muted);
+  margin:0 0 10px;
+}
+
+/* lists */
+.ingredients{
+  margin:0 0 8px 18px;
+  font-size:0.95rem;
+}
+
+.steps{
+  margin:0 0 10px 18px;
+  font-size:0.95rem;
+}
+
+/* footer */
+.section-footer{
+  margin-top:18px;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.95rem;
+  padding:12px 8px;
+}
+
+/* small screens adjustments */
+@media (max-width:420px){
+  body{padding:14px}
+  .card{padding:12px}
+  .section-header h1{font-size:1.4rem}
+}
+    </style>
+
+<script>
+ window.API_BASE_URL = 'http://localhost:5000/api';
+function api(url) { return `${window.API_BASE_URL}${url}`; }
+
+
+</script>
+
+
+</head>
+<body>
+  <main class="container">
+    <header class="section-header">
+      <h1>Make More from Leftovers</h1>
+      <p class="lead">Simple, tasty recipes that turn leftover rice, bread, veg or rotis into new meals.</p>
+    </header>
+
+    <section class="recipes-grid" aria-label="Leftover recipes">
+      <!-- Recipe card -->
+      <article class="card">
+        <h2>Vegetable Fried Rice</h2>
+        <p class="meta">Uses: leftover cooked rice + mixed vegetables</p>
+        <ul class="ingredients">
+          <li>Leftover cooked rice</li>
+          <li>Mixed veggies (carrot, peas, capsicum)</li>
+          <li>Soy sauce, green onion, oil</li>
+        </ul>
+        <ol class="steps">
+          <li>Heat oil, sauté veggies until tender.</li>
+          <li>Add rice, a splash of soy sauce and toss on high heat.</li>
+          <li>Finish with chopped green onion and pepper. Serve hot.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Masala Bread Upma</h2>
+        <p class="meta">Uses: stale bread</p>
+        <ul class="ingredients">
+          <li>Stale bread cubes</li>
+          <li>Onion, mustard seeds, curry leaves, turmeric</li>
+          <li>Chopped tomato & coriander</li>
+        </ul>
+        <ol class="steps">
+          <li>Temper mustard seeds, sauté onion, curry leaves and tomato.</li>
+          <li>Add turmeric, salt and bread cubes; toss until coated.</li>
+          <li>Garnish with coriander and a squeeze of lemon.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Roti/Paratha Chaat</h2>
+        <p class="meta">Uses: leftover rotis / parathas</p>
+        <ul class="ingredients">
+          <li>Leftover rotis (cut into strips)</li>
+          <li>Yogurt, chutney, sev, chopped onion & tomato</li>
+        </ul>
+        <ol class="steps">
+          <li>Warm roti strips in a pan until slightly crisp.</li>
+          <li>Layer with yogurt, tamarind/chili chutney, onion & sev.</li>
+          <li>Sprinkle chaat masala and serve immediately.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Leftover Veg Frittata (Indian style)</h2>
+        <p class="meta">Uses: leftover boiled/roasted vegetables</p>
+        <ul class="ingredients">
+          <li>3–4 eggs (or chickpea flour mix for vegan)</li>
+          <li>Chopped leftover vegetables</li>
+          <li>Salt, pepper, turmeric</li>
+        </ul>
+        <ol class="steps">
+          <li>Beat eggs with spices, fold in vegetables.</li>
+          <li>Pour into a non-stick pan, cook on low until set; finish under a grill if available.</li>
+          <li>Slice and serve with chutney or bread.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Khichdi Remix</h2>
+        <p class="meta">Uses: leftover rice, dal or cooked vegetables</p>
+        <ul class="ingredients">
+          <li>Leftover rice or dal</li>
+          <li>Ghee/ oil, cumin, asafoetida, mixed spices</li>
+          <li>Optional: roasted nuts or sautéed vegetables</li>
+        </ul>
+        <ol class="steps">
+          <li>Heat ghee, temper cumin and asafoetida.</li>
+          <li>Add leftovers, a little water to loosen, simmer and season.</li>
+          <li>Top with ghee and serve with pickle or yogurt.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Paneer/Tofu Stir-up</h2>
+        <p class="meta">Uses: leftover paneer/tofu + veg</p>
+        <ul class="ingredients">
+          <li>Leftover paneer or tofu</li>
+          <li>Sliced onion, bell pepper, leftover curry masala</li>
+        </ul>
+        <ol class="steps">
+          <li>Sauté onion & pepper; add paneer/tofu and a spoon of leftover curry.</li>
+          <li>Cook until heated through and slightly crisp.</li>
+          <li>Serve with rotis or rice.</li>
+        </ol>
+      </article>
+    </section>
+
+    <footer class="section-footer">
+      <p>Tip: label small portions, refrigerate promptly, and always reheat evenly before serving.</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhojan Setu | Our Services</title>
+  <style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.header {
+  background: black;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #ffb347;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+             url('images/OIP.jpeg') center/cover;
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.hero h2 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.services {
+  background: #f5f5f5;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 4rem 8%;
+}
+
+.service-box {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.service-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.service-box img {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+.service-box h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.service-box p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.cta p {
+  margin-bottom: 1.5rem;
+  color: #ccc;
+}
+
+.cta .btn {
+  background: #ffb347;
+  color: #222;
+  text-decoration: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta .btn:hover {
+  background: #ff9500;
+  color: white;
+}
+
+/* Footer */
+.footer {
+  background: #1a1a1a;
+  color: #aaa;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.footer .socials {
+  margin-top: 0.6rem;
+}
+
+.footer .socials a {
+  color: #ffb347;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer .socials a:hover {
+  color: #fff;
+}
+
+  </style>
+
+<script>
+  window.API_BASE_URL = 'http://localhost:5000/api';
+function api(url) { return `${window.API_BASE_URL}${url}`; }
+ 
+</script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Bhojan Setu</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Our Services</h2>
+    <p>Bridging the gap between surplus and need — one meal at a time.</p>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <div class="service-box">
+      <img src="images/10726795.png" alt="Donor Registration">
+      <h3>Donor Registration</h3>
+      <p>We connect restaurants, individuals, and organizations who wish to donate excess food to those who need it most.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063826.png" alt="NGO Partnership">
+      <h3>NGO Partnerships</h3>
+      <p>We collaborate with NGOs to ensure food donations are matched quickly and safely with communities in need.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/4767/4767080.png" alt="Food Coordination">
+      <h3>Food Coordination & Matching</h3>
+      <p>We act as a digital bridge, connecting verified donors with trusted NGOs for smooth food distribution — no middlemen, no waste.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Awareness Drives">
+      <h3>Awareness Drives</h3>
+      <p>We organize campaigns to spread awareness about food wastage and encourage communities to share responsibly.</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>Join Us in Spreading Smiles</h2>
+    <p>Together, we can make sure no plate goes empty.</p>
+    <a href="contact.html" class="btn">Get Involved</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Bhojan Setu | All Rights Reserved</p>
+    <div class="socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhojan Setu | Donor Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f7f8fa;
+      color: #333;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .sidebar h2 { text-align: center; margin-bottom: 20px; }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 15px;
+    }
+
+    .nav-links a {
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { background: #27ae60; color: #fff; }
+
+    .logout-btn {
+      text-align: center;
+      padding: 12px;
+      background: #c0392b;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      margin: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover { background: #a93226; }
+
+    /* Main Content */
+    .main-content { flex-grow: 1; display: flex; flex-direction: column; }
+
+    header {
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .user-info { display: flex; align-items: center; gap: 10px; }
+
+    header .user-info span { font-weight: 600; }
+
+    main { padding: 25px; overflow-y: auto; }
+
+    .section {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .section h3 { margin-bottom: 15px; color: #27ae60; text-align: center; }
+
+    /* Donation Form */
+    form { display: flex; flex-direction: column; gap: 12px; }
+
+    label { font-weight: 500; }
+
+    input, select, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus { border-color: #27ae60; }
+
+    button { background: #27ae60; color: white; padding: 10px; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s ease; }
+
+    button:hover { background: #219150; }
+
+    /* Table for Past Donations */
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid #ddd; }
+
+    th { background-color: #27ae60; color: white; }
+
+    tr:hover { background: #f1f1f1; }
+
+    .status { font-weight: 600; }
+    .status.connected { color: #27ae60; }
+    .status.waiting { color: #f39c12; }
+    .status.expired { color: #e74c3c; }
+
+    .success-message { display: none; text-align: center; margin-top: 10px; color: #2ecc71; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; flex-direction: row; justify-content: space-around; }
+      .main-content { height: auto; }
+    }
+  </style>
+
+  
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>Bhojan Setu</h2>
+      <div class="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#donate">Donate Food</a>
+        <a href="#history">Past Donations</a>
+        <a href="#profile">My Profile</a>
+      </div>
+    </div>
+     <button class="logout-btn" onclick="donorLogout()">Logout</button>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header>
+      <h2>Donor Dashboard</h2>
+      <div class="user-info">
+        <span>👤 Username:</span> <span id="username">Loading...</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Donation Form Section -->
+      <section class="section" id="donate">
+        <h3>Add Food Donation Details</h3>
+        <form id="donationForm">
+          <label>Food Type *</label>
+          <select id="foodType" required>
+            <option value="">Select type</option>
+            <option>Cooked Food</option>
+            <option>Packaged Food</option>
+            <option>Raw Ingredients</option>
+          </select>
+
+          <label>Quantity *</label>
+          <input type="text" id="quantity" placeholder="e.g. 5 kg or 20 plates" required>
+
+          <label>Description</label>
+          <textarea id="description" rows="2" placeholder="Describe the food items"></textarea>
+
+          <label>Pickup Address *</label>
+          <textarea id="pickupAddress" rows="3" placeholder="Enter pickup address" required></textarea>
+
+          <label>Pickup Date & Time *</label>
+          <input type="datetime-local" id="pickupDate" required>
+
+          <label>Contact Number *</label>
+          <input type="tel" id="contactPhone" placeholder="e.g. 9876543210" required>
+
+          <label>Notes (optional)</label>
+          <textarea id="notes" rows="2" placeholder="Any additional notes"></textarea>
+
+          <button type="submit">Submit Donation</button>
+        </form>
+        <div class="success-message" id="successMsg">✅ Donation posted successfully!</div>
+      </section>
+
+      <!-- Past Donations Section -->
+      <section class="section" id="history">
+        <h3>Past Donations</h3>
+        <table id="donationTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Food Type</th>
+              <th>Quantity</th>
+              <th>Status</th>
+              <th>Connected NGO</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- Profile Section -->
+      <section class="section" id="profile">
+        <h3>My Profile</h3>
+        <p><strong>Name:</strong> <span id="profileName">Loading...</span></p>
+        <p><strong>Email:</strong> <span id="profileEmail">Loading...</span></p>
+        <p><strong>Phone:</strong> <span id="profilePhone">Loading...</span></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+  // ===============================
+  // API Base URL
+  // Change this to your live Replit backend URL when deployed
+  // Example: 'https://bhojan-setu-backend.username.repl.co/api'
+  window.API_BASE_URL = 'http://localhost:5000/api';
+function api(url) { return `${window.API_BASE_URL}${url}`; }
+  
+  
+
+  // ===============================
+  // Check if donor is logged in
+  if (!localStorage.getItem('donor_token')) {
+    window.location.href = 'donor-login.html';
+  }
+
+  // ===============================
+  // DOM Elements
+  const donationForm = document.getElementById('donationForm');
+  const donationTableBody = document.getElementById('donationTable').querySelector('tbody');
+  const successMsg = document.getElementById('successMsg');
+
+  // ===============================
+  // Logout function
+  function donorLogout() {
+    localStorage.removeItem('donor_token');
+    window.location.href = 'donor-login.html';
+  }
+
+  // ===============================
+  // Helper function for authenticated POST requests
+  async function authedPost(url, body) {
+    const token = localStorage.getItem('donor_token');
+    if (!token) return window.location.href = 'donor-login.html';
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Request failed');
+    return data;
+  }
+
+  // ===============================
+  // Fetch donor profile
+  async function fetchDonorProfile() {
+    const token = localStorage.getItem('donor_token');
+    if (!token) return window.location.href = 'donor-login.html';
+
+    try {
+      const res = await fetch(api('/donors/profile'), {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      const donor = data.data.donor;
+
+      document.getElementById('username').textContent = donor.name;
+      document.getElementById('profileName').textContent = donor.name;
+      document.getElementById('profileEmail').textContent = donor.email;
+      document.getElementById('profilePhone').textContent = donor.phone || '—';
+    } catch (err) {
+      console.error('Failed to fetch profile:', err);
+    }
+  }
+
+  // ===============================
+  // Load donor's past donations
+  async function loadMyDonations() {
+    const token = localStorage.getItem('donor_token');
+    if (!token) return;
+
+    try {
+      const res = await fetch(api('/donations/my-donations'), {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+
+      donationTableBody.innerHTML = ''; // Clear table
+
+      if (res.ok && data.data?.donations?.length) {
+        data.data.donations.forEach(d => {
+          const row = donationTableBody.insertRow();
+          row.innerHTML = `
+            <td>${new Date(d.createdAt).toLocaleDateString('en-GB')}</td>
+            <td>${d.foodType}</td>
+            <td>${d.quantity}</td>
+            <td class="status ${d.status.toLowerCase()}">${d.status}</td>
+            <td>${d.ngo?.name || '—'}</td>
+          `;
+        });
+      } else {
+        donationTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888;">No donations yet.</td></tr>';
+      }
+    } catch (err) {
+      console.error('Failed to load donations:', err);
+    }
+  }
+
+  // ===============================
+  // Handle donation form submission
+  donationForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const body = {
+      foodType: document.getElementById('foodType').value,
+      quantity: document.getElementById('quantity').value,
+      description: document.getElementById('description').value || '',
+      pickupAddress: document.getElementById('pickupAddress').value,
+      pickupDate: new Date(document.getElementById('pickupDate').value).toISOString(),
+      contactPhone: document.getElementById('contactPhone').value,
+      notes: document.getElementById('notes').value || ''
+    };
+
+    try {
+      await authedPost(api('/donations'), body);
+      successMsg.style.display = 'block';
+      donationForm.reset();
+      loadMyDonations();
+      setTimeout(() => successMsg.style.display = 'none', 4000);
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+
+  // ===============================
+  // Initialize page
+  fetchDonorProfile();
+  loadMyDonations();
+</script>
+
+
+</body>
+</html>
